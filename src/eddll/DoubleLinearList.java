@@ -11,14 +11,6 @@ public class DoubleLinearList {
         this.size = 0;
     }
 
-    private void addSize() {
-        this.size++;
-    }
-
-    private void decSize() {
-        this.size--;
-    }
-
     private boolean empty() {
         return (this.top == null && this.bottom == null);
     }
@@ -32,7 +24,7 @@ public class DoubleLinearList {
             this.top = node;
             serv.setPrev(node);
         }
-        this.addSize();
+        this.size++;
     }
 
     public void append(Node node) {
@@ -44,7 +36,51 @@ public class DoubleLinearList {
             this.bottom = node;
             serv.setNext(this.bottom);
         }
-        this.addSize();
+        this.size++;
+    }
+
+    public Node pop() {
+        Node retNode = null;
+        Node serv = null;
+        if (this.empty()) {
+            return null;
+        }
+        if (this.size == 1) {
+            this.top = this.bottom = null;
+        } else {
+            retNode = this.bottom;
+            serv = retNode.getPrev();
+            retNode.setPrev(null);
+            this.bottom = serv;
+        }
+        this.size--;
+
+        return retNode;
+    }
+
+    public Node remove() {
+        Node retNode = null;
+        Node serv = null;
+        if (this.empty()) {
+            return null;
+        }
+        if (this.size == 1) {
+            this.top = this.bottom = null;
+        } else {
+            retNode = this.top;
+            serv = retNode.getNext();
+            retNode.setNext(null);
+            this.top = serv;
+        }
+        this.size--;
+
+        return retNode;
+    }
+
+    public void clear() {
+        while (!this.empty()) {
+            this.remove();
+        }
     }
 
     public Node search(String id) {

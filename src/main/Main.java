@@ -22,17 +22,17 @@ public class Main {
             }
 
             list.add(new Node(id + "", new Integer(id)));
+            list.append(new Node(id + "", new Integer(id)));
         }
-
-        System.out.print("Search id: ");
-        id = in.nextInt();
-
         in.close();
+        list.show();
 
-        Node nodeRet = list.search(id + "");
-        String sret = ((nodeRet == null) ? "*NULL*" : nodeRet.getId() + " - " + nodeRet.getValue().toString());
-        System.out.println("Retorno -> " + sret);
+        System.out.println("\nremoving with remove...\n");
+        list.remove();
+        list.show();
 
+        System.out.println("\nremoving with pop...\n");
+        list.pop();
         list.show();
     }
 }
