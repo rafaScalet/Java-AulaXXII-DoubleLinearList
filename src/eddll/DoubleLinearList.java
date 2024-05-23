@@ -11,6 +11,17 @@ public class DoubleLinearList {
         this.size = 0;
     }
 
+    public Node getPosNode(int pos) {
+        Node serv = this.top;
+        if (empty() || pos > this.size) {
+            return null;
+        }
+        for (int indx = 1; indx < pos; indx++) {
+            serv = serv.getNext();
+        }
+        return serv;
+    }
+
     private boolean empty() {
         return (this.top == null && this.bottom == null);
     }
@@ -22,7 +33,7 @@ public class DoubleLinearList {
             Node serv = this.top;
             node.setNext(serv);
             this.top = node;
-            serv.setPrev(node);
+            serv.setPrev(this.top);
         }
         this.size++;
     }
@@ -40,41 +51,61 @@ public class DoubleLinearList {
     }
 
     public Node pop() {
-        Node retNode = null;
-        Node serv = null;
         if (this.empty()) {
             return null;
         }
-        if (this.size == 1) {
-            this.top = this.bottom = null;
-        } else {
-            retNode = this.bottom;
-            serv = retNode.getPrev();
-            retNode.setPrev(null);
-            this.bottom = serv;
+        Node serv = this.bottom;
+        this.bottom = serv.getPrev();
+        if(this.bottom != null){
+            Node newBottom = this.bottom;
+            newBottom.setNext(null);
+            serv.setPrev(null);
+        } else{
+            this.top = this.bottom;
         }
         this.size--;
-
-        return retNode;
+        return serv;
     }
 
     public Node remove() {
-        Node retNode = null;
-        Node serv = null;
         if (this.empty()) {
             return null;
         }
-        if (this.size == 1) {
-            this.top = this.bottom = null;
+        Node serv = this.top;
+        this.top = serv.getNext();
+        if (this.top != null) {
+            Node newTop = this.top;
+            newTop.setPrev(null);
+            serv.setNext(null);
         } else {
-            retNode = this.top;
-            serv = retNode.getNext();
-            retNode.setNext(null);
-            this.top = serv;
+            this.bottom = this.top;
         }
         this.size--;
+        return serv;
+    }
 
-        return retNode;
+    public Node delete(int num) {
+        Node serv = null;
+        Node servPos = null;
+        if (this.empty() || num > size) {
+            return null;
+        }
+        if (num == 1) {
+            return this.remove();
+        }
+        if (this.size == num) {
+            return this.pop();
+        }
+        if (this.size > 1) {
+            serv = getPosNode(num - 1);
+            servPos = serv.getNext();
+            serv.setNext(servPos.getNext());
+            servPos.getNext().setPrev(serv);
+            servPos.setPrev(null);
+            servPos.setNext(null);
+            this.size--;
+        }
+        return servPos;
     }
 
     public void clear() {
@@ -92,16 +123,14 @@ public class DoubleLinearList {
                 retNode = retNode.getNext();
             }
         }
-
         return retNode;
     }
 
     public void show() {
-        Node serv = this.bottom;
-        while (serv != this.top) {
+        Node serv = this.top;
+        while (serv != null) {
             System.out.println("-->" + serv.getValue());
-            serv = serv.getPrev();
+            serv = serv.getNext();
         }
-        System.out.println("-->" + serv.getValue());
     }
 }

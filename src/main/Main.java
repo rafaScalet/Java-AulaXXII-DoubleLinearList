@@ -21,18 +21,24 @@ public class Main {
                 break;
             }
 
-            list.add(new Node(id + "", new Integer(id)));
             list.append(new Node(id + "", new Integer(id)));
         }
+        
+        System.out.println("\nItens list:");
+        list.show();
+
+        System.out.print("\nType a item for delete:");
+        list.delete(in.nextInt());
+
+        System.out.println("\nUpdated list:");
+        list.show();
+
+        // System.out.print("\nItem for delete: ");
+        // list.delete(in.nextInt());
+
+        // in.close();
+        // list.show();
+
         in.close();
-        list.show();
-
-        System.out.println("\nremoving with remove...\n");
-        list.remove();
-        list.show();
-
-        System.out.println("\nremoving with pop...\n");
-        list.pop();
-        list.show();
     }
 }
