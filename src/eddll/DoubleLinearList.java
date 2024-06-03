@@ -22,7 +22,7 @@ public class DoubleLinearList {
         return serv;
     }
 
-    private boolean empty() {
+    public boolean empty() {
         return (this.top == null && this.bottom == null);
     }
 

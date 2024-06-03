@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 import eddll.DoubleLinearList;
 import eddll.Node;
+import eddll.MergeDoubleLinearList;
 
 public class Main {
     public static void main(String[] args) {
@@ -14,6 +15,7 @@ public class Main {
         double id = 0;
 
         while (true) {
+
             System.out.print("informations: ");
             id = in.nextDouble();
 
