@@ -3,7 +3,7 @@ package eddll;
 public class DoubleLinearList {
     private Node top;
     private Node bottom;
-    private long size;
+    public long size;
 
     public DoubleLinearList() {
         this.top = null;
@@ -24,6 +24,16 @@ public class DoubleLinearList {
 
     private boolean empty() {
         return (this.top == null && this.bottom == null);
+    }
+
+    public Object[] invArray(){
+        Object[] array = new Object[(int) this.size];
+        Node serv = this.bottom;
+        for(int indx = 0; serv != null; indx++){
+            array[indx] = serv.getValue();
+            serv = serv.getPrev();
+        }
+        return array;
     }
 
     public void add(Node node) {
@@ -126,11 +136,19 @@ public class DoubleLinearList {
         return retNode;
     }
 
-    public void show() {
+    public void showAsc() {
         Node serv = this.top;
         while (serv != null) {
             System.out.println("-->" + serv.getValue());
             serv = serv.getNext();
+        }
+    }
+
+    public void showDesc() {
+        Node serv = this.bottom;
+        while (serv != null) {
+            System.out.println("-->" + serv.getValue());
+            serv = serv.getPrev();
         }
     }
 }
